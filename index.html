@@ -54,19 +54,6 @@ body{
     pointer-events:none;
 }
 
-/* หัวใจลอยปกติ */
-.heart{
-    position:fixed;
-    bottom:-20px;
-    font-size:20px;
-    animation:floatUp 5s linear infinite;
-}
-
-@keyframes floatUp{
-    0%{transform:translateY(0); opacity:1;}
-    100%{transform:translateY(-110vh); opacity:0;}
-}
-
 /* ปุ่มไฟวิ่ง */
 .glow-btn{
     margin-top:20px;
@@ -107,6 +94,19 @@ body{
                 0 0 20px #ff1493,
                 0 0 30px #ff69b4;
 }
+
+/* หัวใจ */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp 4s linear forwards;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-110vh); opacity:0;}
+}
 </style>
 </head>
 
@@ -138,23 +138,18 @@ startScreen.addEventListener("click", function(){
     startScreen.classList.add("hidden");
 });
 
-/* หัวใจลอยพื้นหลัง */
-setInterval(()=>{
-    createHeart(1);
-},500);
-
-function createHeart(multiplier){
+/* ฟังก์ชันสร้างหัวใจ */
+function createHeart(){
     const heart = document.createElement("div");
     heart.className="heart";
     heart.innerHTML="💖";
     heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(15+Math.random()*30*multiplier)+"px";
-    heart.style.animationDuration=(3+Math.random()*2)+"s";
+    heart.style.fontSize=(15+Math.random()*25)+"px";
     document.body.appendChild(heart);
-    setTimeout(()=>{heart.remove();},5000);
+    setTimeout(()=>{heart.remove();},4000);
 }
 
-/* พิมพ์ข้อความทีละตัว */
+/* พิมพ์ข้อความ */
 function showMessage(){
     const text = `ครบรอบ 1 ปี 3 เดือนแล้วนะคนเก่งของเค้า 💕
 อยู่ด้วยกันมานานขนาดนี้
@@ -172,11 +167,11 @@ function showMessage(){
         if(i>=text.length){
             clearInterval(typing);
 
-            // เอฟเฟกต์ฉลอง หัวใจพุ่งเต็มจอ
-            for(let j=0;j<40;j++){
+            // เริ่มหัวใจลอยหลังพิมพ์เสร็จ
+            for(let j=0;j<30;j++){
                 setTimeout(()=>{
-                    createHeart(2);
-                },j*80);
+                    createHeart();
+                }, j*100);
             }
         }
     },40);
