@@ -12,8 +12,10 @@ body{
     overflow:hidden;
     font-family:sans-serif;
     color:white;
+    text-align:center;
 }
 
+/* วิดีโอพื้นหลัง */
 #bgVideo{
     position:fixed;
     top:0;
@@ -24,33 +26,27 @@ body{
     z-index:-2;
 }
 
-/* มืดทับให้ตัวหนังสือชัด */
 .overlay-dark{
     position:fixed;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
     background:rgba(0,0,0,0.4);
     z-index:-1;
 }
 
-/* หน้าจอเริ่มต้น */
+/* หน้าเริ่ม */
 .start-screen{
     position:fixed;
-    top:0;
-    left:0;
     width:100%;
     height:100%;
     background:black;
     display:flex;
     justify-content:center;
     align-items:center;
-    text-align:center;
     font-size:22px;
     cursor:pointer;
-    transition:opacity 1s ease;
     z-index:10;
+    transition:1s;
 }
 
 .hidden{
@@ -58,32 +54,78 @@ body{
     pointer-events:none;
 }
 
-.content{
+/* หัวใจลอยปกติ */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp 5s linear infinite;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-110vh); opacity:0;}
+}
+
+/* ปุ่มไฟวิ่ง */
+.glow-btn{
+    margin-top:20px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    background:black;
+    color:white;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+}
+
+.glow-btn::before{
+    content:"";
     position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,105,180,0.9), transparent);
+    animation:shine 3s infinite;
+}
+
+@keyframes shine{
+    0%{left:-100%;}
+    100%{left:100%;}
+}
+
+/* กล่องข้อความ */
+.message-box{
+    max-width:85%;
+    margin:20px auto;
+    font-size:20px;
+    white-space:pre-line;
+    text-shadow:0 0 10px #ff69b4,
+                0 0 20px #ff1493,
+                0 0 30px #ff69b4;
 }
 </style>
 </head>
 
 <body>
 
-<!-- วิดีโอพื้นหลัง -->
 <video id="bgVideo" loop playsinline>
     <source src="VID_20260218_081004_163.mp4" type="video/mp4">
 </video>
 
 <div class="overlay-dark"></div>
 
-<!-- หน้ากดเริ่ม -->
 <div class="start-screen" id="startScreen">
     แตะหน้าจอเพื่อเริ่มความทรงจำ 💕
 </div>
 
-<div class="content">
-    <h1>Our Memories 💖</h1>
+<div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">
+    <h1 style="text-shadow:0 0 20px #ff69b4;">Our Memories 💖</h1>
+    <button class="glow-btn" onclick="showMessage()">ข้อความจากใจ</button>
+    <div class="message-box" id="message"></div>
 </div>
 
 <script>
@@ -95,8 +137,51 @@ startScreen.addEventListener("click", function(){
     video.play();
     startScreen.classList.add("hidden");
 });
+
+/* หัวใจลอยพื้นหลัง */
+setInterval(()=>{
+    createHeart(1);
+},500);
+
+function createHeart(multiplier){
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(15+Math.random()*30*multiplier)+"px";
+    heart.style.animationDuration=(3+Math.random()*2)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},5000);
+}
+
+/* พิมพ์ข้อความทีละตัว */
+function showMessage(){
+    const text = `ครบรอบ 1 ปี 3 เดือนแล้วนะคนเก่งของเค้า 💕
+อยู่ด้วยกันมานานขนาดนี้
+แต่เค้าก็ยังยิ้มได้ทุกครั้งที่เห็นหน้าที่รัก
+ขอบคุณที่ทำให้เค้ามีความสุขในทุก ๆ วัน
+เค้ารักที่รักที่สุดเลยนะ 🥰`;
+
+    const messageBox = document.getElementById("message");
+    messageBox.innerHTML="";
+    let i=0;
+
+    const typing = setInterval(()=>{
+        messageBox.innerHTML += text.charAt(i);
+        i++;
+        if(i>=text.length){
+            clearInterval(typing);
+
+            // เอฟเฟกต์ฉลอง หัวใจพุ่งเต็มจอ
+            for(let j=0;j<40;j++){
+                setTimeout(()=>{
+                    createHeart(2);
+                },j*80);
+            }
+        }
+    },40);
+}
 </script>
 
 </body>
 </html>
- 
