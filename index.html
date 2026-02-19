@@ -122,7 +122,7 @@ body{
     100%{transform:translateY(-110vh); opacity:0;}
 }
 
-/* ===== กรอบไฟวิ่งรอบรูป ===== */
+/* กรอบไฟ */
 .photo-wrapper{
     display:inline-block;
     padding:5px;
@@ -160,7 +160,7 @@ body{
     100%{transform:translateY(0) scale(1);}
 }
 
-/* ===== ข้อความลอย ===== */
+/* ข้อความลอย */
 .floating-text{
     position:fixed;
     bottom:0;
@@ -197,6 +197,10 @@ body{
 
     <button class="glow-btn" onclick="showMessage()">ข้อความจากใจ</button>
 
+    <!-- ปุ่มใหม่เพิ่มตรงนี้ -->
+    <br><br>
+    <button class="glow-btn" onclick="openGallery()">ลองเข้าไปดู</button>
+
     <div class="message-box rainbow" id="message"></div>
 
     <div class="photo-wrapper">
@@ -214,6 +218,11 @@ startScreen.addEventListener("click", function(){
     startScreen.classList.add("hidden");
 });
 
+/* เปิดหน้า gallery */
+function openGallery(){
+    window.open("gallery.html", "_blank");
+}
+
 function createHeart(){
     const heart = document.createElement("div");
     heart.className="heart";
@@ -224,16 +233,12 @@ function createHeart(){
     setTimeout(()=>{heart.remove();},4000);
 }
 
-/* ข้อความลอย */
 function showFloatingText(){
     const text = document.createElement("div");
     text.className="floating-text rainbow";
     text.innerHTML="รักที่รักนะค้าบ 💕";
     document.body.appendChild(text);
-
-    setTimeout(()=>{
-        text.remove();
-    },3000);
+    setTimeout(()=>{ text.remove(); },3000);
 }
 
 function showMessage(){
@@ -262,9 +267,7 @@ function showMessage(){
             showFloatingText();
 
             for(let j=0;j<30;j++){
-                setTimeout(()=>{
-                    createHeart();
-                }, j*100);
+                setTimeout(()=>{ createHeart(); }, j*100);
             }
         }
     },40);
