@@ -95,7 +95,7 @@ body{
                 0 0 30px #ff69b4;
 }
 
-/* สีรุ้ง */
+/* สีรุ้งเฉพาะข้อความ */
 .rainbow{
     background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
     background-size: 400%;
@@ -122,19 +122,18 @@ body{
     100%{transform:translateY(-110vh); opacity:0;}
 }
 
-/* กรอบไฟ */
+/* กรอบรูป (ไม่มีสีรุ้งแล้ว) */
 .photo-wrapper{
     display:inline-block;
     padding:5px;
     border-radius:25px;
-    background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-    background-size:400%;
-    animation:rainbowBorder 4s linear infinite;
+    opacity:0;
+    transition:1s;
 }
 
-@keyframes rainbowBorder{
-    0%{background-position:0%;}
-    100%{background-position:400%;}
+/* ตอนโชว์ */
+.photo-wrapper.show{
+    opacity:1;
 }
 
 /* รูป */
@@ -142,7 +141,7 @@ body{
     width:220px;
     margin-top:20px;
     border-radius:20px;
-    box-shadow:0 0 25px #ff69b4;
+    box-shadow:0 0 35px #ff69b4;
     opacity:0;
     transform:scale(0.8);
     transition:1s;
@@ -197,13 +196,12 @@ body{
 
     <button class="glow-btn" onclick="showMessage()">ข้อความจากใจ</button>
 
-    <!-- ปุ่มใหม่เพิ่มตรงนี้ -->
     <br><br>
     <button class="glow-btn" onclick="openGallery()">ลองเข้าไปดู</button>
 
     <div class="message-box rainbow" id="message"></div>
 
-    <div class="photo-wrapper">
+    <div class="photo-wrapper" id="photoWrapper">
         <img id="lovePhoto" src="Non_9CD9985E-C592-4DA5-AB1D-B048B332F4CE.jpeg">
     </div>
 </div>
@@ -218,7 +216,6 @@ startScreen.addEventListener("click", function(){
     startScreen.classList.add("hidden");
 });
 
-/* เปิดหน้า gallery */
 function openGallery(){
     window.open("gallery.html", "_blank");
 }
@@ -250,9 +247,11 @@ function showMessage(){
 
     const messageBox = document.getElementById("message");
     const photo = document.getElementById("lovePhoto");
+    const wrapper = document.getElementById("photoWrapper");
 
     messageBox.innerHTML="";
     photo.classList.remove("show");
+    wrapper.classList.remove("show");
 
     let i=0;
 
@@ -262,8 +261,8 @@ function showMessage(){
 
         if(i>=text.length){
             clearInterval(typing);
-
             photo.classList.add("show");
+            wrapper.classList.add("show");
             showFloatingText();
 
             for(let j=0;j<30;j++){
@@ -276,4 +275,3 @@ function showMessage(){
 
 </body>
 </html>
- 
