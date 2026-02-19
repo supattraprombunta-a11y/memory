@@ -6,46 +6,60 @@
 <title>Our Special Moments 💕</title>
 
 <style>
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     margin:0;
     background:black;
     font-family:sans-serif;
-    overflow:hidden;
+    color:white;
 }
 
-/* คอนเทนเนอร์เลื่อน */
+/* คอนเทนเนอร์ */
 .slider{
-    position:absolute;
     width:100%;
-    animation: autoScroll 60s linear infinite;
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+    padding:40px 0;
 }
 
-@keyframes autoScroll{
-    0%{transform:translateY(0);}
-    100%{transform:translateY(-50%);}
-}
-
+/* แต่ละคลิป */
 .section{
-    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    padding:20px;
 }
 
+/* วิดีโอ */
 video{
-    width:80%;
+    width:85%;
     max-width:500px;
     border-radius:25px;
     box-shadow:0 0 40px #ff69b4;
 }
 
+/* หัวข้อ */
 .title{
-    color:white;
     margin-bottom:20px;
     font-size:22px;
     text-shadow:0 0 15px #ff69b4;
+}
+
+/* หัวใจลอย */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp 5s linear forwards;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-110vh); opacity:0;}
 }
 </style>
 </head>
@@ -56,34 +70,72 @@ video{
 
     <div class="section">
         <div class="title">โมเมนต์พิเศษของเรา 💖</div>
-        <video src="VID_20260218_081004_163.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_081004_163.mp4" type="video/mp4">
+        </video>
     </div>
 
     <div class="section">
-        <video src="VID_20260218_223807_289.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_223807_289.mp4" type="video/mp4">
+        </video>
     </div>
 
     <div class="section">
-        <video src="VID_20260218_223918_163.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_223918_163.mp4" type="video/mp4">
+        </video>
     </div>
 
     <div class="section">
-        <video src="VID_20260218_224010_165.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_224010_165.mp4" type="video/mp4">
+        </video>
     </div>
 
     <div class="section">
-        <video src="VID_20260218_224113_581.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_224113_581.mp4" type="video/mp4">
+        </video>
     </div>
 
     <div class="section">
-        <video src="VID_20260218_224124_259.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_224124_259.mp4" type="video/mp4">
+        </video>
     </div>
 
     <div class="section">
-        <video src="VID_20260218_224243_492.mp4" controls autoplay loop></video>
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="VID_20260218_224243_492.mp4" type="video/mp4">
+        </video>
     </div>
 
 </div>
 
+<script>
+/* ทำให้แตะหน้าจอครั้งเดียวแล้วเปิดเสียงได้ */
+document.body.addEventListener("click", ()=>{
+    const videos = document.querySelectorAll("video");
+    videos.forEach(v=>{
+        v.muted=false;
+        v.play();
+    });
+});
+
+/* หัวใจลอย */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(15+Math.random()*25)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},5000);
+}
+
+setInterval(createHeart,1000);
+</script>
+
 </body>
-                                                                          </html>
+                </html>
