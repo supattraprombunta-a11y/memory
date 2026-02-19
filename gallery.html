@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Special Moments 💕</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    font-family:sans-serif;
+    overflow:hidden;
+}
+
+/* คอนเทนเนอร์เลื่อน */
+.slider{
+    position:absolute;
+    width:100%;
+    animation: autoScroll 60s linear infinite;
+}
+
+@keyframes autoScroll{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-50%);}
+}
+
+.section{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:20px;
+}
+
+video{
+    width:80%;
+    max-width:500px;
+    border-radius:25px;
+    box-shadow:0 0 40px #ff69b4;
+}
+
+.title{
+    color:white;
+    margin-bottom:20px;
+    font-size:22px;
+    text-shadow:0 0 15px #ff69b4;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slider">
+
+    <div class="section">
+        <div class="title">โมเมนต์พิเศษของเรา 💖</div>
+        <video src="VID_20260218_081004_163.mp4" controls autoplay loop></video>
+    </div>
+
+    <div class="section">
+        <video src="VID_20260218_223807_289.mp4" controls autoplay loop></video>
+    </div>
+
+    <div class="section">
+        <video src="VID_20260218_223918_163.mp4" controls autoplay loop></video>
+    </div>
+
+    <div class="section">
+        <video src="VID_20260218_224010_165.mp4" controls autoplay loop></video>
+    </div>
+
+    <div class="section">
+        <video src="VID_20260218_224113_581.mp4" controls autoplay loop></video>
+    </div>
+
+    <div class="section">
+        <video src="VID_20260218_224124_259.mp4" controls autoplay loop></video>
+    </div>
+
+    <div class="section">
+        <video src="VID_20260218_224243_492.mp4" controls autoplay loop></video>
+    </div>
+
+</div>
+
+</body>
+                                                                          </html>
