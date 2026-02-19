@@ -68,13 +68,15 @@ video{
 
 <div class="slider">
 
+    <!-- คลิปแรก มีเสียง -->
     <div class="section">
         <div class="title">โมเมนต์พิเศษของเรา 💖</div>
-        <video autoplay muted loop playsinline preload="auto">
+        <video autoplay loop playsinline preload="auto" controls>
             <source src="VID_20260218_081004_163.mp4" type="video/mp4">
         </video>
     </div>
 
+    <!-- คลิปอื่น เงียบ -->
     <div class="section">
         <video autoplay muted loop playsinline preload="auto">
             <source src="VID_20260218_223807_289.mp4" type="video/mp4">
@@ -114,15 +116,6 @@ video{
 </div>
 
 <script>
-/* ทำให้แตะหน้าจอครั้งเดียวแล้วเปิดเสียงได้ */
-document.body.addEventListener("click", ()=>{
-    const videos = document.querySelectorAll("video");
-    videos.forEach(v=>{
-        v.muted=false;
-        v.play();
-    });
-});
-
 /* หัวใจลอย */
 function createHeart(){
     const heart = document.createElement("div");
@@ -138,4 +131,4 @@ setInterval(createHeart,1000);
 </script>
 
 </body>
-                </html>
+</html>
