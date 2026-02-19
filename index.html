@@ -95,7 +95,7 @@ body{
                 0 0 30px #ff69b4;
 }
 
-/* ===== สีรุ้งวิบวับ ===== */
+/* สีรุ้ง */
 .rainbow{
     background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
     background-size: 400%;
@@ -121,6 +121,60 @@ body{
     0%{transform:translateY(0); opacity:1;}
     100%{transform:translateY(-110vh); opacity:0;}
 }
+
+/* ===== กรอบไฟวิ่งรอบรูป ===== */
+.photo-wrapper{
+    display:inline-block;
+    padding:5px;
+    border-radius:25px;
+    background:linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    background-size:400%;
+    animation:rainbowBorder 4s linear infinite;
+}
+
+@keyframes rainbowBorder{
+    0%{background-position:0%;}
+    100%{background-position:400%;}
+}
+
+/* รูป */
+#lovePhoto{
+    width:220px;
+    margin-top:20px;
+    border-radius:20px;
+    box-shadow:0 0 25px #ff69b4;
+    opacity:0;
+    transform:scale(0.8);
+    transition:1s;
+    animation:floatPhoto 4s ease-in-out infinite;
+}
+
+#lovePhoto.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+@keyframes floatPhoto{
+    0%{transform:translateY(0) scale(1);}
+    50%{transform:translateY(-10px) scale(1.03);}
+    100%{transform:translateY(0) scale(1);}
+}
+
+/* ===== ข้อความลอย ===== */
+.floating-text{
+    position:fixed;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:22px;
+    font-weight:bold;
+    animation:floatText 3s ease-out forwards;
+}
+
+@keyframes floatText{
+    0%{transform:translate(-50%,0); opacity:1;}
+    100%{transform:translate(-50%,-200px); opacity:0;}
+}
 </style>
 </head>
 
@@ -140,8 +194,14 @@ body{
     <h1 class="rainbow" style="text-shadow:0 0 20px #ff69b4;">
         Our Memories 💖
     </h1>
+
     <button class="glow-btn" onclick="showMessage()">ข้อความจากใจ</button>
+
     <div class="message-box rainbow" id="message"></div>
+
+    <div class="photo-wrapper">
+        <img id="lovePhoto" src="Non_9CD9985E-C592-4DA5-AB1D-B048B332F4CE.jpeg">
+    </div>
 </div>
 
 <script>
@@ -154,7 +214,6 @@ startScreen.addEventListener("click", function(){
     startScreen.classList.add("hidden");
 });
 
-/* ฟังก์ชันสร้างหัวใจ */
 function createHeart(){
     const heart = document.createElement("div");
     heart.className="heart";
@@ -165,7 +224,18 @@ function createHeart(){
     setTimeout(()=>{heart.remove();},4000);
 }
 
-/* พิมพ์ข้อความ */
+/* ข้อความลอย */
+function showFloatingText(){
+    const text = document.createElement("div");
+    text.className="floating-text rainbow";
+    text.innerHTML="รักที่รักนะค้าบ 💕";
+    document.body.appendChild(text);
+
+    setTimeout(()=>{
+        text.remove();
+    },3000);
+}
+
 function showMessage(){
     const text = `ครบรอบ 1 ปี 3 เดือนแล้วนะคนเก่งของเค้า 💕
 อยู่ด้วยกันมานานขนาดนี้
@@ -174,14 +244,22 @@ function showMessage(){
 เค้ารักที่รักที่สุดเลยนะ 🥰`;
 
     const messageBox = document.getElementById("message");
+    const photo = document.getElementById("lovePhoto");
+
     messageBox.innerHTML="";
+    photo.classList.remove("show");
+
     let i=0;
 
     const typing = setInterval(()=>{
         messageBox.innerHTML += text.charAt(i);
         i++;
+
         if(i>=text.length){
             clearInterval(typing);
+
+            photo.classList.add("show");
+            showFloatingText();
 
             for(let j=0;j<30;j++){
                 setTimeout(()=>{
@@ -195,4 +273,3 @@ function showMessage(){
 
 </body>
 </html>
- 
